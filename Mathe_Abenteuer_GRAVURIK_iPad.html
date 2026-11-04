@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#ffd34d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Mathe-Abenteuer">
+<title>Mathe-Abenteuer Klasse 3 • GRAVURIK</title>
+<style>
+:root{--ink:#171717;--paper:#fffdf5;--yellow:#ffd34d;--blue:#67c8ff;--green:#6ee7a8;--pink:#ff8fb3;--purple:#b89cff;--orange:#ffad66;--red:#ff7272;--shadow:0 7px 0 var(--ink);font-family:ui-rounded,"Arial Rounded MT Bold",system-ui,sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:linear-gradient(160deg,#bdeaff 0 22%,#eaffd8 22% 56%,#ffe7a6 56%);color:var(--ink);min-height:100vh}
+button,input{font:inherit}
+button{cursor:pointer}
+.app{max-width:1100px;margin:auto;padding:14px 14px 34px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:20;background:#ffffffd9;backdrop-filter:blur(10px);border:3px solid var(--ink);border-radius:20px;padding:8px 12px;margin-bottom:14px}
+.logo{height:55px;width:auto}.stats{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.pill{border:2px solid var(--ink);border-radius:999px;background:#fff;padding:7px 11px;font-weight:900;box-shadow:3px 3px 0 var(--ink)}
+main{min-height:70vh}
+.screen{animation:in .25s ease}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero,.panel{background:var(--paper);border:4px solid var(--ink);border-radius:28px;box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
+.hero{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:center}
+h1{font-size:clamp(2.1rem,6vw,4rem);line-height:.95;margin:0 0 12px}
+h2{font-size:clamp(1.5rem,4vw,2.4rem);margin:4px 0 14px}.lead{font-size:1.15rem;font-weight:800}
+.btn{border:3px solid var(--ink);border-radius:17px;padding:12px 16px;background:var(--yellow);font-weight:1000;box-shadow:5px 5px 0 var(--ink);margin:5px;transition:.12s}.btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}.btn.secondary{background:#fff}.btn.green{background:var(--green)}.btn.blue{background:var(--blue)}.btn.pink{background:var(--pink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px}
+.world{min-height:155px;border:3px solid var(--ink);border-radius:22px;padding:15px;text-align:left;background:#fff;box-shadow:5px 5px 0 var(--ink);position:relative;overflow:hidden}.world .icon{font-size:48px}.world h3{margin:5px 0;font-size:1.25rem}.world.locked{filter:grayscale(.7);opacity:.65}.lock{position:absolute;right:12px;top:10px;font-size:25px}
+.character{font-size:180px;text-align:center;filter:drop-shadow(8px 8px 0 var(--ink));user-select:none}
+.bubble{border:3px solid var(--ink);border-radius:20px;background:#fff;padding:13px;font-weight:900;position:relative}.bubble:before{content:"";position:absolute;left:-14px;top:25px;border-width:9px 14px 9px 0;border-style:solid;border-color:transparent var(--ink) transparent transparent}
+.progress{height:18px;background:#eee;border:3px solid var(--ink);border-radius:99px;overflow:hidden}.progress>i{display:block;height:100%;background:var(--green);width:0}
+.task{font-size:clamp(1.7rem,5vw,3rem);font-weight:1000;text-align:center;margin:18px 0}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.choice{min-height:75px;background:#fff;border:3px solid var(--ink);border-radius:18px;box-shadow:4px 4px 0 var(--ink);font-size:1.5rem;font-weight:1000}.choice.good{background:var(--green)}.choice.bad{background:var(--red)}
+.answer{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.answer input{width:180px;text-align:center;font-size:2rem;border:3px solid var(--ink);border-radius:16px;padding:10px;font-weight:1000}
+.feedback{text-align:center;font-size:1.25rem;font-weight:1000;min-height:35px}
+.map{position:relative;background:linear-gradient(#bdeaff 0 55%,#9edc78 55%);min-height:520px;border:4px solid var(--ink);border-radius:28px;overflow:hidden}.map:after{content:"";position:absolute;inset:auto 0 0;height:35%;background:repeating-linear-gradient(145deg,#8bcf67 0 30px,#96d876 30px 60px);opacity:.6}
+.path{position:absolute;left:10%;right:10%;top:50%;height:24px;border-top:10px dashed var(--ink);transform:rotate(-7deg);z-index:1}
+.node{position:absolute;z-index:3;width:130px;min-height:105px;border:4px solid var(--ink);border-radius:25px;background:#fff;box-shadow:6px 6px 0 var(--ink);font-weight:1000}.node span{font-size:38px;display:block}.n0{left:4%;top:57%}.n1{left:19%;top:35%}.n2{left:34%;top:55%}.n3{left:49%;top:30%}.n4{left:64%;top:53%}.n5{left:77%;top:31%}.n6{right:4%;top:55%}
+.badges{display:flex;flex-wrap:wrap;gap:8px}.badge{padding:9px 11px;border:2px solid var(--ink);border-radius:15px;background:#fff;font-weight:1000}.badge.off{opacity:.3;filter:grayscale(1)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.draw{border:3px solid var(--ink);border-radius:18px;background:#fff;width:100%;height:230px;touch-action:none}
+.row{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.small{font-size:.9rem;font-weight:800;opacity:.8}
+.modal{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;z-index:50;padding:18px}.modal>div{max-width:520px;width:100%;background:#fff;border:4px solid var(--ink);border-radius:24px;box-shadow:8px 8px 0 var(--ink);padding:20px}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}.confetti i{position:absolute;width:10px;height:18px;animation:fall 1.3s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+@media(max-width:720px){header{align-items:flex-start}.logo{height:45px}.hero{grid-template-columns:1fr}.character{font-size:110px}.choices{grid-template-columns:1fr}.map{min-height:570px}.node{width:108px;font-size:.8rem}.n0{left:2%}.n1{left:17%}.n2{left:32%}.n3{left:48%}.n4{left:63%}.n5{left:76%}.n6{right:2%}}
+</style>
+</head>
+<body>
+<div id="ipadHint" style="display:none;position:fixed;inset:0;background:#fffdf5;z-index:9999;padding:28px;font-family:system-ui;text-align:center">
+  <div style="font-size:64px">🦊</div>
+  <h2>Mathe-Abenteuer</h2>
+  <p style="font-size:18px;font-weight:700">Die App ist bereit. Du kannst sie über <b>Teilen → Zum Home-Bildschirm</b> als App auf dem iPad ablegen.</p>
+  <button onclick="document.getElementById('ipadHint').style.display='none'" style="font-size:18px;padding:12px 18px;border:3px solid #171717;border-radius:14px;background:#ffd34d;font-weight:900">Los geht's 🚀</button>
+</div>
+<div class="app">
+<header><img class="logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MjAgMTUwIj4KPHJlY3Qgd2lkdGg9IjUyMCIgaGVpZ2h0PSIxNTAiIHJ4PSIyOCIgZmlsbD0iI2ZmZiIvPgo8ZyBzdHJva2U9IiMxMTEiIHN0cm9rZS13aWR0aD0iOCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CjxwYXRoIGQ9Ik0xOTAgMzhoMTQwbC0xNiAyNUgyMDZ6Ii8+CjxwYXRoIGQ9Ik0yMjAgMzhsMTItMjJoMjBsOCAyMiAxMi0yMiAyMCAyMiAxNi0xNiAxNCAxNiIvPgo8cGF0aCBkPSJNMjMwIDY1djM4aDYwVjY1Ii8+CjwvZz4KPHRleHQgeD0iMzMwIiB5PSI3OCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNDMiIGZvbnQtd2VpZ2h0PSI5MDAiPkdSQVZVUklLPC90ZXh0Pgo8dGV4dCB4PSIzMzAiIHk9IjExMiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSI3MDAiPkxBU0VSIOKAoiBXT09EIOKAoiBFUE9YWSDigKIgREVTSUdOPC90ZXh0Pgo8L3N2Zz4=" alt="GRAVURIK"><div class="stats"><span class="pill">⭐ <b id="stars">0</b></span><span class="pill">🪙 <b id="coins">0</b></span><span class="pill">🔥 <b id="streak">0</b></span><button class="btn secondary" id="sound">🔊</button></div></header>
+<main id="main"></main>
+</div>
+<div id="modalRoot"></div>
+<script>
+const W=[
+["Zahlenwald","🌲","Zahlen, Vergleichen & Rechnen","10"],["Plus-Burg","🏰","Addition bis 1000","20"],["Minus-Vulkan","🌋","Subtraktion bis 1000","30"],["Mal-Planet","🪐","Einmaleins & Sachaufgaben","40"],["Divisions-Mond","🌙","Teilen & Prüfen","50"],["Knobel-Tal","🧩","Muster & Denkaufgaben","60"],["Meisterinsel","🏆","Gemischte Meistermission","70"]
+];
+const state=JSON.parse(localStorage.getItem("mathe_gravurik_final")||'{"stars":0,"coins":0,"streak":0,"xp":0,"world":0,"done":0,"sound":true,"name":"Mathe-Abenteurer","last":"","badges":[],"best":0}');
+const save=()=>localStorage.setItem("mathe_gravurik_final",JSON.stringify(state));
+const $=s=>document.querySelector(s);
+const main=$("#main");
+function sync(){ $("#stars").textContent=state.stars;$("#coins").textContent=state.coins;$("#streak").textContent=state.streak;save(); }
+function beep(ok=true){if(!state.sound)return;try{let a=new AudioContext(),o=a.createOscillator(),g=a.createGain();o.frequency.value=ok?620:180;o.type="sine";g.gain.value=.035;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.12)}catch(e){}}
+function confetti(){let c=document.createElement("div");c.className="confetti";for(let i=0;i<55;i++){let x=document.createElement("i");x.style.left=Math.random()*100+"%";x.style.top="-30px";x.style.background=["#ffd34d","#67c8ff","#ff8fb3","#6ee7a8","#b89cff"][i%5];x.style.transform=`rotate(${Math.random()*180}deg)`;x.style.animationDelay=Math.random()*.35+"s";c.append(x)}document.body.append(c);setTimeout(()=>c.remove(),1600)}
+function unlock(){return Math.min(7,1+Math.floor(state.stars/8))}
+function home(){
+ sync();main.innerHTML=`<section class="hero"><div><div class="small">GRAVURIK präsentiert</div><h1>🦊 Mathe-Abenteuer<br>Klasse 3</h1><p class="lead">Eine echte Lernreise mit Kuno! Rechnen, knobeln, sammeln und Level freischalten.</p><button class="btn" onclick="map()">🚀 Abenteuer starten</button><button class="btn green" onclick="quick()">⚡ Schnelle Mission</button><p class="small">Für iPad, iPhone und Apple Pencil optimiert • offline nutzbar</p></div><div class="character">🦊</div></section>
+<section class="panel"><h2>🏅 Dein Fortschritt</h2><div class="row"><b>${state.name}</b><b>${state.xp} XP</b></div><div class="progress"><i style="width:${Math.min(100,state.xp%100)}%"></i></div><p>🌟 ${state.stars} Sterne &nbsp; 🪙 ${state.coins} Münzen &nbsp; 🏆 ${state.done} Missionen</p><div class="badges">${badgeHTML()}</div></section>
+<section class="panel"><div class="row"><h2>👨‍👩‍👧 Elternbereich</h2><button class="btn secondary" onclick="parentGate()">Öffnen</button></div><p class="small">Lernfortschritt und Übungsstatistik. Der Bereich ist mit einer einfachen Rechenfrage geschützt.</p></section>`;
+}
+function badgeHTML(){let bs=[["🌟","Sternsammler",state.stars>=10],["🔥","Serienheld",state.streak>=5],["🧠","Knobelprofi",state.done>=10],["🏆","Meister",state.stars>=50],["🪙","Schatzsucher",state.coins>=100]];return bs.map(b=>`<span class="badge ${b[2]?"":"off"}">${b[0]} ${b[1]}</span>`).join("")}
+function map(){
+ let u=unlock();main.innerHTML=`<section class="panel"><div class="row"><div><h2>🗺️ Kunos Abenteuerkarte</h2><p class="small">Sammle Sterne, um neue Welten zu öffnen.</p></div><button class="btn secondary" onclick="home()">🏠 Start</button></div></section>
+ <section class="map"><div class="path"></div>${W.map((w,i)=>`<button class="node n${i}" ${i<u?"":"disabled"} onclick="world(${i})">${i<u?"":"🔒"}<span>${w[1]}</span>${w[0]}<br><small>${i<u?"spielen":"gesperrt"}</small></button>`).join("")}</section>
+ <section class="panel"><h2>🎁 Nächste Belohnung</h2><p>Du brauchst noch <b>${Math.max(0,8-state.stars%8)}</b> Sterne bis zur nächsten Welt.</p></section>`;
+}
+function world(i){
+ const missions=5, completed=state["w"+i]||0;
+ main.innerHTML=`<section class="panel"><div class="row"><div><h2>${W[i][1]} ${W[i][0]}</h2><p>${W[i][2]}</p></div><button class="btn secondary" onclick="map()">🗺️ Karte</button></div><div class="progress"><i style="width:${completed/5*100}%"></i></div><p><b>${completed}/5 Missionen</b> abgeschlossen</p></section>
+ <section class="hero"><div><div class="bubble">🦊 Kuno: „Bereit? Jede richtige Antwort bringt dir ⭐ und 🪙!“</div><button class="btn" onclick="mission(${i})">🎯 Mission ${Math.min(5,completed+1)} starten</button></div><div class="character">${W[i][1]}</div></section>`;
+}
+function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function makeTask(w){
+ let type=rand(0,4),a,b,ans,text;
+ if(w===0){a=rand(10,80);b=rand(5,30);ans=a+b;text=`${a} + ${b} = ?`}
+ if(w===1){a=rand(100,600);b=rand(20,300);ans=a+b;text=`${a} + ${b} = ?`}
+ if(w===2){a=rand(200,900);b=rand(20,Math.min(300,a));ans=a-b;text=`${a} − ${b} = ?`}
+ if(w===3){a=rand(2,10);b=rand(2,10);ans=a*b;text=`${a} × ${b} = ?`}
+ if(w===4){b=rand(2,9);ans=rand(2,9);a=b*ans;text=`${a} : ${b} = ?`}
+ if(w===5){a=rand(10,80);b=rand(2,15);ans=a+b;text=`Muster: ${a}, ${a+b}, ${a+2*b}, ?`}
+ if(w===6){let mode=rand(0,2);if(mode===0){a=rand(100,500);b=rand(20,100);ans=a+b;text=`Meister: ${a} + ${b} = ?`}else if(mode===1){a=rand(200,800);b=rand(20,150);ans=a-b;text=`Meister: ${a} − ${b} = ?`}else{a=rand(2,10);b=rand(2,10);ans=a*b;text=`Meister: ${a} × ${b} = ?`}}
+ let opts=[ans,ans+rand(1,8),Math.max(0,ans-rand(1,8)),ans+rand(9,18)].sort(()=>Math.random()-.5);
+ return {text,ans,opts};
+}
+let current=null;
+function mission(w){
+ current=makeTask(w);
+ main.innerHTML=`<section class="panel"><div class="row"><b>${W[w][1]} ${W[w][0]}</b><span>🎯 Mission</span></div><div class="progress"><i style="width:${((state["w"+w]||0)/5)*100}%"></i></div><div class="task">${current.text}</div><div class="choices">${current.opts.map((x,k)=>`<button class="choice" onclick="answer(${x},${w},this)">${x}</button>`).join("")}</div><div class="feedback" id="fb"></div><div class="tools"><button class="btn secondary" onclick="drawPad()">✏️ Rechenfläche</button><button class="btn secondary" onclick="world(${w})">↩️ Zurück</button></div></section>`;
+}
+function answer(v,w,el){
+ if(v===current.ans){el.classList.add("good");beep(true);confetti();state.stars++;state.coins+=5;state.xp+=10;state.done++;state.streak++;state["w"+w]=Math.min(5,(state["w"+w]||0)+1);state.best=Math.max(state.best,state.streak);if(state.streak%5===0)state.coins+=10;sync();$("#fb").textContent="🎉 Richtig! Kuno ist begeistert! +⭐ +🪙";setTimeout(()=>{if((state["w"+w]||0)>=5 && w<6) map();else world(w)},700)}
+ else{el.classList.add("bad");beep(false);state.streak=0;sync();$("#fb").textContent="💡 Noch einmal! Nimm dir Zeit und rechne Schritt für Schritt."}
+}
+function quick(){let w=Math.min(6,Math.floor(state.stars/8));mission(w)}
+function drawPad(){
+ main.innerHTML=`<section class="panel"><h2>✏️ Kunos Rechenfläche</h2><p>Hier kannst du mit Apple Pencil rechnen oder zeichnen.</p><canvas id="pad" class="draw"></canvas><div class="tools"><button class="btn" onclick="clearPad()">🧽 Löschen</button><button class="btn green" onclick="home()">✅ Fertig</button></div></section>`;
+ const c=$("#pad"),ctx=c.getContext("2d"),d=window.devicePixelRatio||1;
+ function resize(){c.width=c.clientWidth*d;c.height=c.clientHeight*d;ctx.scale(d,d);ctx.lineWidth=4;ctx.lineCap="round"}resize();
+ let down=false;c.onpointerdown=e=>{down=true;c.setPointerCapture(e.pointerId);ctx.beginPath();ctx.moveTo(e.offsetX,e.offsetY)};c.onpointermove=e=>{if(!down)return;ctx.lineTo(e.offsetX,e.offsetY);ctx.stroke()};c.onpointerup=()=>down=false;c.onpointercancel=()=>down=false;
+ window.clearPad=()=>ctx.clearRect(0,0,c.width,c.height);
+}
+function parentGate(){let a=rand(3,9),b=rand(3,9);modal(`<h2>👨‍👩‍👧 Elternbereich</h2><p>Bitte löse die Rechenfrage:</p><div class="task">${a} × ${b} = ?</div><div class="answer"><input id="pg" inputmode="numeric"><button class="btn" onclick="if(Number($('#pg').value)===${a*b}){closeModal();parentPanel()}else alert('Bitte noch einmal versuchen.')">Öffnen</button></div>`)}
+function parentPanel(){main.innerHTML=`<section class="panel"><div class="row"><h2>📊 Lernübersicht</h2><button class="btn secondary" onclick="home()">🏠</button></div><div class="grid"><div class="panel"><h3>⭐ Sterne</h3><div class="task">${state.stars}</div></div><div class="panel"><h3>🎯 Missionen</h3><div class="task">${state.done}</div></div><div class="panel"><h3>🔥 Beste Serie</h3><div class="task">${state.best}</div></div><div class="panel"><h3>🪙 Münzen</h3><div class="task">${state.coins}</div></div></div><h2>Welten</h2>${W.map((w,i)=>`<p><b>${w[1]} ${w[0]}</b> — ${state["w"+i]||0}/5 Missionen</p>`).join("")}<button class="btn pink" onclick="resetProgress()">⚠️ Fortschritt zurücksetzen</button></section>`}
+function modal(s){$("#modalRoot").innerHTML=`<div class="modal"><div>${s}<div style="text-align:right"><button class="btn secondary" onclick="closeModal()">Schließen</button></div></div></div>`}
+function closeModal(){$("#modalRoot").innerHTML=""}
+function resetProgress(){if(confirm("Wirklich den Lernfortschritt löschen?")){localStorage.removeItem("mathe_gravurik_final");location.reload()}}
+$("#sound").onclick=()=>{state.sound=!state.sound;$("#sound").textContent=state.sound?"🔊":"🔇";save()}
+home();
+</script>
+</body></html>
